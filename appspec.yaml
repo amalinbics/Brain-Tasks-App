@@ -1,0 +1,10 @@
+version: 0.0
+resources:
+  - myAppSpec:
+      type: Kubernetes
+      properties:
+        clusterName: brain-tasks-cluster
+        namespace: default
+        resourceDefinitions:
+          - deployment.yaml
+         

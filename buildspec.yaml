@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com
+      - REPO_URI=911167920418.dkr.ecr.ap-south-1.amazonaws.com/final-project/brain-tasks-app:latest
+  build:
+    commands:
+      - docker build -t final-project/brain-tasks-app .
+      - docker tag final-project/brain-tasks-app:latest $REPO_URI
+      - docker push $REPO_URI
+  post_build:
+    commands:
+      - aws eks update-kubeconfig --name brain-tasks-cluster --region ap-south-1
+      - sed -i "s|<ECR_IMAGE_URL>|$REPO_URI|g" deployment.yaml
+      - kubectl apply -f deployment.yaml
+artifacts:
+  files:
+    - '**/*'
