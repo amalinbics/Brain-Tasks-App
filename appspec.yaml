@@ -1,20 +1,22 @@
 version: 0.0
-Resources:
-  - myApp:
-      Type: AWS::EKS::Application
-      Properties:
-        Name: brain-tasks-app
-        ClusterName: brain-tasks-cluster
-        Namespace: default
-        Files:
-          - source: deployment.yaml
-            destination: /tmp/deployment.yaml
-          - source: service.yaml
-            destination: /tmp/service.yaml
-Hooks:
+os: linux
+files:
+  - source: /
+    destination: /tmp/codedeploy-app
+hooks:
   BeforeInstall:
-    - location: scripts/update-image.sh
+    - location: scripts/before_install.sh
       timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/application_start.sh
+      timeout: 300
+      runas: root
   AfterInstall:
-    - location: scripts/kubectl-apply.sh
+    - location: scripts/after_install.sh
       timeout: 300
+      runas: root
+  ValidateService:
+    - location: scripts/validate_service.sh
+      timeout: 300
+      runas: root
