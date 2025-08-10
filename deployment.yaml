@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: brain-tasks-deployment
-  labels:
-    app: brain-tasks
 spec:
   replicas: 2
   selector:
@@ -16,22 +14,6 @@ spec:
     spec:
       containers:
         - name: brain-tasks-container
-          image: <ECR_IMAGE_URL>
+          image: <IMAGE_URI>
           ports:
             - containerPort: 3000
-
-#############################################
-
-apiVersion: v1
-kind: Service
-metadata:
-  name: brain-tasks-service
-spec:
-  type: LoadBalancer
-  selector:
-    app: brain-tasks
-  ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 3000
-

@@ -1,21 +1,29 @@
 version: 0.2
 
+env:
+  variables:
+    AWS_REGION: ap-south-1
+    ECR_REPO_NAME: brain-tasks-app
+
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com
-      - REPO_URI=911167920418.dkr.ecr.ap-south-1.amazonaws.com/final-project/brain-tasks-app:latest
+      - REPO_URI=$(aws ecr describe-repositories --repository-names $ECR_REPO_NAME --query 'repositories[0].repositoryUri' --output text)
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com $REPO_URI
   build:
     commands:
-      - docker build -t final-project/brain-tasks-app .
-      - docker tag final-project/brain-tasks-app:latest $REPO_URI
-      - docker push $REPO_URI
+      - echo Building Docker image with build number $CODEBUILD_BUILD_NUMBER...
+      - docker build -t $ECR_REPO_NAME:$CODEBUILD_BUILD_NUMBER .
+      - docker tag $ECR_REPO_NAME:$CODEBUILD_BUILD_NUMBER $REPO_URI:$CODEBUILD_BUILD_NUMBER
+      - docker tag $ECR_REPO_NAME:$CODEBUILD_BUILD_NUMBER $REPO_URI:latest
   post_build:
     commands:
-      - aws eks update-kubeconfig --name brain-tasks-cluster --region ap-south-1
-      - sed -i "s|<ECR_IMAGE_URL>|$REPO_URI|g" deployment.yaml
-      - kubectl apply -f deployment.yaml
+      - echo Pushing Docker images to ECR...
+      - docker push $REPO_URI:$CODEBUILD_BUILD_NUMBER
+      - docker push $REPO_URI:latest
+      - echo Writing image definitions file...
+      - printf '[{"name":"brain-tasks-container","imageUri":"%s"}]' $REPO_URI:$CODEBUILD_BUILD_NUMBER > imagedefinitions.json
 artifacts:
   files:
-    - '**/*'
+    - imagedefinitions.json
