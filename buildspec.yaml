@@ -9,7 +9,7 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com $REPO_URI
+      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com
   build:
     commands:
       - echo Building Docker image with build number $CODEBUILD_BUILD_NUMBER...
