@@ -23,7 +23,7 @@ phases:
       - docker push $REPO_URI:$CODEBUILD_BUILD_NUMBER
       - docker push $REPO_URI:latest
       - echo Writing image definitions file...
-      - printf '[{"name":"brain-tasks-container","imageUri":"%s"}]' $REPO_URI:$CODEBUILD_BUILD_NUMBER > imagedefinitions.json
+      - sed -i "s|<IMAGE_URI>|$REPO_URI:$CODEBUILD_BUILD_NUMBER|g" deployment.yaml
 artifacts:
   files:
-    - imagedefinitions.json
+    - '**/*'
