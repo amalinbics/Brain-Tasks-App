@@ -26,9 +26,3 @@ phases:
 artifacts:
   files:
     - '**/*' 
-    - deployment.yaml
-    - service.yaml
-    - imagedefinitions.json
-    - scripts/**
-    
-  discard-paths: yes
