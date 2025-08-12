@@ -15,8 +15,8 @@ phases:
       - echo "Using build number $BUILD_NUMBER"
       - docker build -t $ECR_REPO_URI:$BUILD_NUMBER .
       - echo "Tagging the Docker image..."
-      - docker tag $ECR_REPO_URI:$BUILD_NUMBER $ECR_REPO_URI:BUILD_NUMBER
-      - docker tag $ECR_REPO_URI:$BUILD_NUMBER $ECR_REPO_URI:latest
+      - echo "$ECR_REPO_URI:$BUILD_NUMBER"
+      - docker tag $ECR_REPO_URI:$BUILD_NUMBER
   post_build:
     commands:
       - echo "Pushing the Docker image to ECR..."
