@@ -15,5 +15,4 @@ kubectl version --short
 # For example, you might want to scale down an existing deployment before a blue/green deployment.
 # kubectl scale deployment <deployment-name> --replicas=0
 
-chmod +x /tmp/codedeploy-app/scripts/*
 echo "BeforeInstall hook finished."

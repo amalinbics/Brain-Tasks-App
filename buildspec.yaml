@@ -19,7 +19,7 @@ phases:
   post_build:
     commands:
       - echo "Pushing the Docker image to ECR..."
-      - docker push $ECR_REPO_URI:BUILD_NUMBER
+      - docker push $ECR_REPO_URI:$BUILD_NUMBER
       - echo "Creating the build artifact for CodeDeploy..."
       - printf '[{"name":"brain-tasks-app-container","imageUri":"%s"}]' $ECR_REPO_URI:$BUILD_NUMBER > imagedefinitions.json
 artifacts:
