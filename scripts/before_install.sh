@@ -9,7 +9,7 @@ aws eks update-kubeconfig --region ap-south-1 --name brain-tasks-cluster
 
 # 2. Verify kubectl is connected
 # It's a good practice to test the connection to ensure the next steps won't fail.
-kubectl version
+
 
 # 3. (Optional) Pre-deployment tasks
 # For example, you might want to scale down an existing deployment before a blue/green deployment.
