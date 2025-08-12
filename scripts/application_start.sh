@@ -17,4 +17,4 @@ cd "$DEPLOY_DIR"
 kubectl apply -f ../deployment.yaml
 kubectl apply -f ../service.yaml
 
-echo "Kubernetes manifests applied successfully."
+echo "Kubernetes manifests applied successfully!."
