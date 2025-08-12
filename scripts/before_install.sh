@@ -2,9 +2,6 @@
 set -e
 echo "Running BeforeInstall hook..."
 
-echo "Contents of /tmp/codedeploy-app:"
-ls -R /tmp/codedeploy-app
-
 # 1. Update Kubeconfig
 # This command fetches the cluster authentication details and configures kubectl.
 # The IAM role associated with your CodeDeploy agent needs permissions to do this.

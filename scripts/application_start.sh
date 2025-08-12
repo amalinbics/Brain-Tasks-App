@@ -3,6 +3,10 @@ set -e
 echo "Running ApplicationStart hook..."
 echo "pwd: $(pwd)"
 
+DEPLOY_DIR=$(dirname "$0")
+echo "Deploy directory: $DEPLOY_DIR"
+cd "$DEPLOY_DIR"
+
 # Get the ECR image URI from the CodeBuild artifact
 #IMAGE_URI=$(jq -r '.[0].imageUri' /tmp/codedeploy-app/imagedefinitions.json)
 
