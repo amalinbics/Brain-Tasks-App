@@ -24,4 +24,4 @@ phases:
       - printf '[{"name":"brain-tasks-app-container","imageUri":"%s"}]' $ECR_REPO_URI:$BUILD_NUMBER > imagedefinitions.json
 artifacts:
   files:
-    - 'imagedefinitions.json'
+    - '**/*' 
