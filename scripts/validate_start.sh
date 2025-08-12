@@ -23,4 +23,4 @@ echo "Service is running at: http://$LOAD_BALANCER_HOSTNAME"
 #   exit 1
 # fi
 
-echo "Validation successful!"
+echo "Validation test successful!"
