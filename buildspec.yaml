@@ -2,6 +2,7 @@ version: 0.2
 env:
   variables:
     ECR_REPO_URI: 911167920418.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app 
+    APP_NAME: brain-tasks-app
 phases:
   pre_build:
     commands:
@@ -11,12 +12,10 @@ phases:
   build:
     commands:
       - echo "Building the Docker image..."
-      - echo "Using ECR repository URI $ECR_REPO_URI"
       - echo "Using build number $BUILD_NUMBER"
-      - docker build -t $ECR_REPO_URI:$BUILD_NUMBER .
+      - docker build -t $APP_NAME:$BUILD_NUMBER .
       - echo "Tagging the Docker image..."
-      - echo "$ECR_REPO_URI:$BUILD_NUMBER"
-      - docker tag $ECR_REPO_URI:$BUILD_NUMBER
+      - docker tag $APP_NAME:$BUILD_NUMBER $ECR_REPO_URI:BUILD_NUMBER
   post_build:
     commands:
       - echo "Pushing the Docker image to ECR..."
