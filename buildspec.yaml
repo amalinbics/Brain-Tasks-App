@@ -25,4 +25,7 @@ phases:
       - sed -i "s|TAG_PLACEHOLDER|$BUILD_NUMBER|g" deployment.yaml
 artifacts:
   files:
-    - '**/*' 
+    - appspec.yml
+    - deployment.yaml
+    - service.yaml
+    - scripts/**/*
