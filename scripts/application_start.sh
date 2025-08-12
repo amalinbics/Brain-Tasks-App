@@ -10,7 +10,7 @@ echo "pwd: $(pwd)"
 #sed -i "s|<IMAGE_URI>|${IMAGE_URI}|g" /tmp/codedeploy-app/deployment.yaml
 
 # Apply the Kubernetes manifest files
-kubectl apply -f ../deployment.yaml
-kubectl apply -f ../service.yaml
+kubectl apply -f deployment.yaml
+kubectl apply -f service.yaml
 
 echo "Kubernetes manifests applied successfully."
