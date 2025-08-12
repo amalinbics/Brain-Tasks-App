@@ -6,7 +6,7 @@ echo "Running ValidateService hook..."
 sleep 30
 
 # Get the LoadBalancer hostname
-LOAD_BALANCER_HOSTNAME=$(kubectl get service brain-tasks-app-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
+LOAD_BALANCER_HOSTNAME=$(kubectl get service brain-tasks-service -o jsonpath='{.status.loadBalancer.ingress[0].hostname}')
 
 # Check if the hostname exists and the service is reachable
 if [ -z "$LOAD_BALANCER_HOSTNAME" ]; then
