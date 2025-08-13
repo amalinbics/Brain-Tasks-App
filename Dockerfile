@@ -10,7 +10,7 @@ COPY nginx.conf /etc/nginx/conf.d
 # Copy React build files to Nginx web root
 COPY dist/ /usr/share/nginx/html
 
-# Expose port 80
+# Expose port 3000
 EXPOSE 3000
 
 # Start Nginx
