@@ -12,7 +12,7 @@ phases:
     commands:
       - echo "Building the Docker image..."
       - echo "Using build number $BUILD_NUMBER"
-      - docker build -t $ECR_REPO_URI:$BUILD_NUMBER .
+      - docker build -t $ECR_REPO_URI/$APP_NAME:$BUILD_NUMBER .
       - echo "Tagging the Docker image..."
       - docker tag $ECR_REPO_URI/$APP_NAME:$BUILD_NUMBER $ECR_REPO_URI/$APP_NAME:BUILD_NUMBER
   post_build:
