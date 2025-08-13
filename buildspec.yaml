@@ -1,14 +1,14 @@
 version: 0.2
 env:
   variables:
-    ECR_REPO_URI: 911167920418.dkr.ecr.ap-south-1.amazonaws.com/brain-tasks-app 
+    ECR_REPO_URI: $ECR_REPO_URI/brain-tasks-app
     APP_NAME: brain-tasks-app
 phases:
   pre_build:
     commands:
       - echo "Logging in to ECR..."
       - BUILD_NUMBER=${CODEBUILD_BUILD_NUMBER}
-      - aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 911167920418.dkr.ecr.ap-south-1.amazonaws.com
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI
   build:
     commands:
       - echo "Building the Docker image..."
