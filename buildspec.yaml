@@ -20,7 +20,7 @@ phases:
       - echo "Pushing the Docker image to ECR..."
       - docker push $ECR_REPO_URI/$APP_NAME:$BUILD_NUMBER
       - echo "Updating deployment.yaml with ECR URI and tag..."
-      - sed -i "s|REPO_URI_PLACEHOLDER|$ECR_REPO_URI|g" deployment.yaml
+      - sed -i "s|REPO_URI_PLACEHOLDER|$ECR_REPO_URI/$APP_NAME|g" deployment.yaml
       - sed -i "s|TAG_PLACEHOLDER|$BUILD_NUMBER|g" deployment.yaml
 artifacts:
   files:
