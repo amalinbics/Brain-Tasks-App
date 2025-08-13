@@ -5,9 +5,7 @@ env:
 phases:
   pre_build:
     commands:
-      - echo "Logging in to ECR.."
-      - echo "$AWS_REGION"
-      - echo  "$ECR_REPO_URI"
+      - echo "Logging in to ECR..."
       - BUILD_NUMBER=${CODEBUILD_BUILD_NUMBER}
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $ECR_REPO_URI/$APP_NAME
   build:
